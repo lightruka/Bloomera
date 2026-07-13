@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloomera - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Ionicons for beautiful simple icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <div class="logo-icon"><ion-icon name="flower-outline"></ion-icon></div>
+                <h2>Bloomera</h2>
+            </div>
+            <button class="close-btn" id="close-btn"><ion-icon name="close-outline"></ion-icon></button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active">
+                <ion-icon name="settings-outline"></ion-icon>
+                <span>Configuration</span>
+            </a>
+            <a href="#" class="nav-item">
+                <ion-icon name="stats-chart-outline"></ion-icon>
+                <span>Statistiques</span>
+            </a>
+            <a href="#" class="nav-item">
+                <ion-icon name="people-outline"></ion-icon>
+                <span>Membres</span>
+            </a>
+            <a href="#" class="nav-item">
+                <ion-icon name="document-text-outline"></ion-icon>
+                <span>Commandes</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=ff477e&color=fff" alt="Admin Avatar">
+                <div class="user-info">
+                    <span class="user-name">Admin Serveur</span>
+                    <span class="user-role">Propriétaire</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="top-header">
+            <button class="menu-btn" id="menu-btn"><ion-icon name="menu-outline"></ion-icon></button>
+            <div class="header-title">
+                <h1>Configuration Générale</h1>
+                <p>Gérez les modules principaux de votre serveur</p>
+            </div>
+        </header>
+
+        <section class="modules-grid">
+            <!-- Module 1 -->
+            <article class="module-card">
+                <div class="module-header">
+                    <div class="module-icon moderation">
+                        <ion-icon name="shield-checkmark-outline"></ion-icon>
+                    </div>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="mod-toggle" checked>
+                        <label for="mod-toggle"></label>
+                    </div>
+                </div>
+                <div class="module-content">
+                    <h3>Modération</h3>
+                    <p>Protégez votre communauté avec des filtres anti-spam, des sanctions automatiques et des mots interdits.</p>
+                </div>
+            </article>
+
+            <!-- Module 2 -->
+            <article class="module-card">
+                <div class="module-header">
+                    <div class="module-icon welcome">
+                        <ion-icon name="hand-right-outline"></ion-icon>
+                    </div>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="welcome-toggle" checked>
+                        <label for="welcome-toggle"></label>
+                    </div>
+                </div>
+                <div class="module-content">
+                    <h3>Accueil & Départs</h3>
+                    <p>Personnalisez les messages de bienvenue, l'attribution de rôles automatiques et dites au revoir aux membres.</p>
+                </div>
+            </article>
+
+            <!-- Module 3 -->
+            <article class="module-card">
+                <div class="module-header">
+                    <div class="module-icon logs">
+                        <ion-icon name="list-outline"></ion-icon>
+                    </div>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="logs-toggle">
+                        <label for="logs-toggle"></label>
+                    </div>
+                </div>
+                <div class="module-content">
+                    <h3>Logs Serveur</h3>
+                    <p>Gardez une trace de toutes les actions (messages supprimés, membres modifiés, salons créés) dans un salon dédié.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
