@@ -86,41 +86,114 @@ body {
     flex-direction: column;
     gap: 8px;
     flex: 1;
+    overflow-y: auto;
 }
 
-.nav-item {
+.sidebar-nav::-webkit-scrollbar {
+    width: 4px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+/* Base nav items */
+.nav-item, .nav-item-parent {
     display: flex;
     align-items: center;
-    gap: 16px;
+    justify-content: space-between;
     padding: 14px 18px;
     text-decoration: none;
     color: var(--text-muted);
     border-radius: 12px;
     transition: var(--transition);
     font-weight: 500;
-    position: relative;
-    overflow: hidden;
+    cursor: pointer;
 }
 
-.nav-item ion-icon {
+.nav-item-parent-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav-item ion-icon, .nav-item-parent-left ion-icon {
     font-size: 22px;
 }
 
-.nav-item:hover {
+.nav-item:hover, .nav-item-parent:hover {
     color: var(--text-main);
     background: rgba(255, 255, 255, 0.05);
-    transform: translateX(5px);
 }
 
-.nav-item.active {
-    color: #fff;
-    background: var(--accent-gradient);
-    box-shadow: 0 4px 15px rgba(255, 71, 126, 0.3);
+.dropdown-icon {
+    transition: transform 0.3s ease;
+}
+
+.nav-item-parent.active .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+/* Nav Subgroup (Accordion style) */
+.nav-subgroup {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-top: 4px;
+    border-left: 1px solid var(--border-color);
+    padding-left: 16px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+}
+
+.nav-subgroup.expanded {
+    max-height: 300px;
+    opacity: 1;
+    margin-bottom: 8px;
+}
+
+.nav-sub-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin: 12px 0 8px 12px;
+    font-weight: 700;
+}
+
+.nav-sub-item {
+    padding: 10px 14px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 14px;
+    border-radius: 8px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-sub-item .sub-icon {
+    font-size: 16px;
+}
+
+.nav-sub-item:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.nav-sub-item.active {
+    color: var(--text-main);
+    background: rgba(255, 71, 126, 0.1);
+    border-left: 2px solid var(--accent-color);
 }
 
 .sidebar-footer {
     padding-top: 24px;
     border-top: 1px solid var(--border-color);
+    margin-top: 12px;
 }
 
 .user-profile {
@@ -163,7 +236,7 @@ body {
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .menu-btn {
@@ -193,24 +266,36 @@ body {
     font-size: 16px;
 }
 
-/* --- Modules Grid --- */
-.modules-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 24px;
+/* --- Content Sections --- */
+.content-section {
+    display: none;
+    animation: fadeIn 0.4s ease forwards;
 }
 
-.module-card {
+.content-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Module Page Style */
+.module-page-header {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 20px;
     padding: 30px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
     position: relative;
     overflow: hidden;
-    transition: var(--transition);
 }
 
-.module-card::before {
+.module-page-header::before {
     content: '';
     position: absolute;
     top: 0;
@@ -218,36 +303,18 @@ body {
     width: 100%;
     height: 100%;
     background: radial-gradient(circle at top right, rgba(255, 71, 126, 0.05), transparent 60%);
-    opacity: 0;
-    transition: var(--transition);
     pointer-events: none;
 }
 
-.module-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(255, 71, 126, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.module-card:hover::before {
-    opacity: 1;
-}
-
-.module-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
 .module-icon {
-    width: 54px;
-    height: 54px;
-    border-radius: 16px;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: 32px;
+    flex-shrink: 0;
 }
 
 .module-icon.moderation {
@@ -265,11 +332,52 @@ body {
     color: #3b82f6;
 }
 
+.module-info {
+    flex: 1;
+}
+
+.module-info h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.module-info p {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.module-page-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 40px;
+    min-height: 300px;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-muted);
+    opacity: 0.6;
+    gap: 16px;
+    padding: 40px 0;
+}
+
+.empty-state ion-icon {
+    font-size: 48px;
+}
+
 /* --- Toggle Switch --- */
 .toggle-switch {
     position: relative;
     width: 52px;
     height: 28px;
+    flex-shrink: 0;
 }
 
 .toggle-switch input {
@@ -309,20 +417,6 @@ body {
 
 .toggle-switch input:checked + label:before {
     transform: translateX(24px);
-}
-
-/* --- Module Content --- */
-.module-content h3 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: #fff;
-}
-
-.module-content p {
-    color: var(--text-muted);
-    font-size: 15px;
-    line-height: 1.6;
 }
 
 /* --- Overlay --- */
@@ -383,10 +477,14 @@ body {
     .header-title h1 {
         font-size: 24px;
     }
-}
-
-@media screen and (max-width: 480px) {
-    .modules-grid {
-        grid-template-columns: 1fr;
+    
+    .module-page-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+    }
+    
+    .toggle-switch {
+        margin-top: 10px;
     }
 }

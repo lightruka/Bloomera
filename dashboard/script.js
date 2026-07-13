@@ -4,14 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('close-btn');
     const overlay = document.getElementById('overlay');
 
-    // Open Sidebar
+    // 1. Gestion de la Sidebar (Mobile)
     menuBtn.addEventListener('click', () => {
         sidebar.classList.add('active');
         overlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling on mobile
+        document.body.style.overflow = 'hidden'; 
     });
 
-    // Close Sidebar
     const closeSidebar = () => {
         sidebar.classList.remove('active');
         overlay.classList.remove('active');
@@ -21,15 +20,54 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtn.addEventListener('click', closeSidebar);
     overlay.addEventListener('click', closeSidebar);
 
-    // ID du serveur de test
+    // 2. Gestion de l'accordéon "Configuration"
+    const configParent = document.getElementById('config-parent');
+    const configSubgroup = document.getElementById('config-subgroup');
+
+    configParent.addEventListener('click', () => {
+        configParent.classList.toggle('active');
+        configSubgroup.classList.toggle('expanded');
+    });
+
+    // 3. Navigation entre les modules (Single Page App style)
+    const subItems = document.querySelectorAll('.nav-sub-item');
+    const sections = document.querySelectorAll('.content-section');
+
+    subItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Retirer l'état actif de tous les liens
+            subItems.forEach(link => link.classList.remove('active'));
+            
+            // Ajouter l'état actif sur le lien cliqué
+            item.classList.add('active');
+
+            // Cacher toutes les sections
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Afficher la section correspondante
+            const targetId = item.getAttribute('data-target');
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Sur mobile, on ferme la sidebar après avoir cliqué sur un lien
+            if (window.innerWidth <= 768) {
+                closeSidebar();
+            }
+        });
+    });
+
+    // 4. Gestion API et Base de données
     const guildId = '1526188327563296819';
 
-    // Variables pour les switchs
     const modToggle = document.getElementById('mod-toggle');
     const welcomeToggle = document.getElementById('welcome-toggle');
     const logsToggle = document.getElementById('logs-toggle');
 
-    // Charger la configuration depuis l'API
+    // Charger la config initiale
     async function loadConfig() {
         try {
             const response = await fetch(`/api/config/${guildId}`);
@@ -44,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Mettre à jour un paramètre via l'API
+    // Mettre à jour la config
     async function updateConfig(moduleName, isEnabled) {
         try {
             await fetch(`/api/config/${guildId}`, {
@@ -57,22 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Module Toggles (Micro-interaction & API call)
+    // Gérer les clics sur les switchs
     const toggles = document.querySelectorAll('.toggle-switch input');
     
     toggles.forEach(toggle => {
         toggle.addEventListener('change', (e) => {
-            const moduleCard = e.target.closest('.module-card');
-            
-            if (e.target.checked) {
-                // Activated animation effect
-                moduleCard.style.transform = 'scale(1.02)';
-                setTimeout(() => {
-                    moduleCard.style.transform = '';
-                }, 200);
-            }
-
-            // Déterminer le nom du module
             let moduleName = '';
             if (e.target.id === 'mod-toggle') moduleName = 'module_moderation';
             if (e.target.id === 'welcome-toggle') moduleName = 'module_welcome';
@@ -84,6 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Chargement initial
+    // Chargement de l'API
     loadConfig();
 });

@@ -23,10 +23,31 @@
         </div>
 
         <nav class="sidebar-nav">
-            <a href="#" class="nav-item active">
-                <ion-icon name="settings-outline"></ion-icon>
-                <span>Configuration</span>
-            </a>
+            <!-- Groupe Configuration (avec sous-menu) -->
+            <div class="nav-group">
+                <div class="nav-item-parent active" id="config-parent">
+                    <div class="nav-item-parent-left">
+                        <ion-icon name="settings-outline"></ion-icon>
+                        <span>Configuration</span>
+                    </div>
+                    <ion-icon name="chevron-down-outline" class="dropdown-icon"></ion-icon>
+                </div>
+                
+                <div class="nav-subgroup expanded" id="config-subgroup">
+                    <div class="nav-sub-title">Modules</div>
+                    <a href="#" class="nav-sub-item active" data-target="section-moderation">
+                        <span class="sub-icon">🛡️</span> Modération
+                    </a>
+                    <a href="#" class="nav-sub-item" data-target="section-welcome">
+                        <span class="sub-icon">👋</span> Accueil
+                    </a>
+                    <a href="#" class="nav-sub-item" data-target="section-logs">
+                        <span class="sub-icon">📜</span> Logs
+                    </a>
+                </div>
+            </div>
+
+            <!-- Autres liens simples -->
             <a href="#" class="nav-item">
                 <ion-icon name="stats-chart-outline"></ion-icon>
                 <span>Statistiques</span>
@@ -60,63 +81,84 @@
         <header class="top-header">
             <button class="menu-btn" id="menu-btn"><ion-icon name="menu-outline"></ion-icon></button>
             <div class="header-title">
-                <h1>Configuration Générale</h1>
-                <p>Gérez les modules principaux de votre serveur</p>
+                <h1 id="page-title">Configuration</h1>
+                <p id="page-desc">Gérez les modules principaux de votre serveur</p>
             </div>
         </header>
 
-        <section class="modules-grid">
-            <!-- Module 1 -->
-            <article class="module-card">
-                <div class="module-header">
+        <div class="content-wrapper">
+            <!-- Section Modération -->
+            <section id="section-moderation" class="content-section active">
+                <div class="module-page-header">
                     <div class="module-icon moderation">
                         <ion-icon name="shield-checkmark-outline"></ion-icon>
                     </div>
+                    <div class="module-info">
+                        <h2>Modération</h2>
+                        <p>Protégez votre communauté avec des filtres anti-spam, des sanctions automatiques et des mots interdits.</p>
+                    </div>
                     <div class="toggle-switch">
-                        <input type="checkbox" id="mod-toggle" checked>
+                        <input type="checkbox" id="mod-toggle">
                         <label for="mod-toggle"></label>
                     </div>
                 </div>
-                <div class="module-content">
-                    <h3>Modération</h3>
-                    <p>Protégez votre communauté avec des filtres anti-spam, des sanctions automatiques et des mots interdits.</p>
+                
+                <div class="module-page-content">
+                    <div class="empty-state">
+                        <ion-icon name="construct-outline"></ion-icon>
+                        <p>Les paramètres détaillés de modération apparaîtront ici.</p>
+                    </div>
                 </div>
-            </article>
+            </section>
 
-            <!-- Module 2 -->
-            <article class="module-card">
-                <div class="module-header">
+            <!-- Section Accueil -->
+            <section id="section-welcome" class="content-section">
+                <div class="module-page-header">
                     <div class="module-icon welcome">
                         <ion-icon name="hand-right-outline"></ion-icon>
                     </div>
+                    <div class="module-info">
+                        <h2>Accueil & Départs</h2>
+                        <p>Personnalisez les messages de bienvenue, l'attribution de rôles automatiques et dites au revoir aux membres.</p>
+                    </div>
                     <div class="toggle-switch">
-                        <input type="checkbox" id="welcome-toggle" checked>
+                        <input type="checkbox" id="welcome-toggle">
                         <label for="welcome-toggle"></label>
                     </div>
                 </div>
-                <div class="module-content">
-                    <h3>Accueil & Départs</h3>
-                    <p>Personnalisez les messages de bienvenue, l'attribution de rôles automatiques et dites au revoir aux membres.</p>
-                </div>
-            </article>
 
-            <!-- Module 3 -->
-            <article class="module-card">
-                <div class="module-header">
+                <div class="module-page-content">
+                    <div class="empty-state">
+                        <ion-icon name="construct-outline"></ion-icon>
+                        <p>Les paramètres détaillés d'accueil apparaîtront ici.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Logs -->
+            <section id="section-logs" class="content-section">
+                <div class="module-page-header">
                     <div class="module-icon logs">
                         <ion-icon name="list-outline"></ion-icon>
+                    </div>
+                    <div class="module-info">
+                        <h2>Logs Serveur</h2>
+                        <p>Gardez une trace de toutes les actions (messages supprimés, membres modifiés, salons créés) dans un salon dédié.</p>
                     </div>
                     <div class="toggle-switch">
                         <input type="checkbox" id="logs-toggle">
                         <label for="logs-toggle"></label>
                     </div>
                 </div>
-                <div class="module-content">
-                    <h3>Logs Serveur</h3>
-                    <p>Gardez une trace de toutes les actions (messages supprimés, membres modifiés, salons créés) dans un salon dédié.</p>
+
+                <div class="module-page-content">
+                    <div class="empty-state">
+                        <ion-icon name="construct-outline"></ion-icon>
+                        <p>Les paramètres détaillés des logs apparaîtront ici.</p>
+                    </div>
                 </div>
-            </article>
-        </section>
+            </section>
+        </div>
     </main>
 
     <script src="script.js"></script>
