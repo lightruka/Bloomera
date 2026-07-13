@@ -3,7 +3,6 @@ const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const { initDB } = require('./database');
-const { startAPI } = require('./api');
 
 // Initialisation du client avec les intents nécessaires
 const client = new Client({ 
@@ -50,7 +49,6 @@ for (const file of eventFiles) {
 (async () => {
     try {
         await initDB();
-        startAPI(client);
         await client.login(process.env.DISCORD_TOKEN);
     } catch (error) {
         console.error("Erreur au démarrage :", error);

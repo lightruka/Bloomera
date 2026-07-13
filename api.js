@@ -3,7 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const { getConfig, updateConfig } = require('./database');
 
-function startAPI(client) {
+module.exports = (client) => {
     const app = express();
     const port = 3000;
 
@@ -17,18 +17,23 @@ function startAPI(client) {
     app.get('/api/channels/:guildId', async (req, res) => {
         const guildId = req.params.guildId;
         try {
+            console.log(`[API] Récupération des salons demandée pour le serveur: ${guildId}`);
             // Le bot doit être sur le serveur pour récupérer les salons
             const guild = await client.guilds.fetch(guildId);
-            if (!guild) return res.status(404).json({ error: 'Serveur introuvable' });
+            if (!guild) {
+                console.log(`[API] Serveur ${guildId} introuvable par le bot.`);
+                return res.status(404).json({ error: 'Serveur introuvable' });
+            }
 
             // On filtre pour ne garder que les salons textuels (type 0 en v14)
             const textChannels = guild.channels.cache
                 .filter(channel => channel.type === 0)
                 .map(channel => ({ id: channel.id, name: channel.name }));
 
+            console.log(`[API] ${textChannels.length} salons textuels trouvés pour ${guild.name}.`);
             res.json(textChannels);
         } catch (error) {
-            console.error(error);
+            console.error('[API] Erreur lors de la récupération des salons:', error);
             res.status(500).json({ error: 'Erreur lors de la récupération des salons' });
         }
     });
@@ -93,6 +98,4 @@ function startAPI(client) {
     app.listen(port, () => {
         console.log(`🌐 Dashboard et API disponibles sur http://localhost:${port}`);
     });
-}
-
-module.exports = { startAPI };
+};

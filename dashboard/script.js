@@ -75,20 +75,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Charger la liste des salons
     async function loadChannels() {
-        if (!trapSelect) return;
+        if (!trapSelect) {
+            console.error("ERREUR FRONTEND : L'élément <select id='trap-channel-select'> est introuvable dans le HTML !");
+            return;
+        }
         try {
+            console.log(`Lancement du fetch pour récupérer les salons de ${guildId}...`);
             const response = await fetch(`/api/channels/${guildId}`);
+            
             if (response.ok) {
                 const channels = await response.json();
+                console.log("SUCCÈS - Salons reçus depuis l'API :", channels);
+                
+                // Réinitialiser les options pour éviter les doublons au cas où
+                trapSelect.innerHTML = '<option value="">-- Sélectionnez un salon --</option>';
+                
                 channels.forEach(channel => {
                     const option = document.createElement('option');
                     option.value = channel.id;
                     option.textContent = `#${channel.name}`;
                     trapSelect.appendChild(option);
                 });
+            } else {
+                console.error("L'API a retourné une erreur :", response.status);
             }
         } catch (error) {
-            console.error('Erreur de chargement des salons:', error);
+            console.error("ERREUR FETCH : Impossible de contacter l'API pour les salons.", error);
         }
     }
 

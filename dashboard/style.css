@@ -5,10 +5,10 @@
     --border-color: rgba(255, 255, 255, 0.08);
     --accent-gradient: linear-gradient(135deg, #ff477e 0%, #ff7eb3 100%);
     --accent-color: #ff477e;
-    
+
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
-    
+
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -92,13 +92,15 @@ body {
 .sidebar-nav::-webkit-scrollbar {
     width: 4px;
 }
+
 .sidebar-nav::-webkit-scrollbar-thumb {
     background: var(--border-color);
     border-radius: 4px;
 }
 
 /* Base nav items */
-.nav-item, .nav-item-parent {
+.nav-item,
+.nav-item-parent {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -117,11 +119,13 @@ body {
     gap: 16px;
 }
 
-.nav-item ion-icon, .nav-item-parent-left ion-icon {
+.nav-item ion-icon,
+.nav-item-parent-left ion-icon {
     font-size: 22px;
 }
 
-.nav-item:hover, .nav-item-parent:hover {
+.nav-item:hover,
+.nav-item-parent:hover {
     color: var(--text-main);
     background: rgba(255, 255, 255, 0.05);
 }
@@ -277,8 +281,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Module Page Style */
@@ -376,6 +387,7 @@ body {
 .settings-group {
     margin-bottom: 30px;
 }
+
 .settings-title {
     font-size: 14px;
     font-weight: 600;
@@ -384,11 +396,13 @@ body {
     letter-spacing: 1px;
     margin-bottom: 16px;
 }
+
 .settings-cards {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
+
 .setting-card {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--border-color);
@@ -399,14 +413,17 @@ body {
     justify-content: space-between;
     transition: var(--transition);
 }
+
 .setting-card:hover {
     background: rgba(255, 255, 255, 0.04);
 }
+
 .setting-info {
     display: flex;
     align-items: center;
     gap: 16px;
 }
+
 .setting-info ion-icon {
     font-size: 24px;
     color: var(--accent-color);
@@ -414,11 +431,13 @@ body {
     padding: 10px;
     border-radius: 12px;
 }
+
 .setting-info h4 {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 4px;
 }
+
 .setting-info p {
     font-size: 14px;
     color: var(--text-muted);
@@ -460,14 +479,14 @@ body {
     background-color: white;
     transition: .4s;
     border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.toggle-switch input:checked + label {
+.toggle-switch input:checked+label {
     background: var(--accent-gradient);
 }
 
-.toggle-switch input:checked + label:before {
+.toggle-switch input:checked+label:before {
     transform: translateX(24px);
 }
 
@@ -511,6 +530,7 @@ body {
     box-shadow: 0 4px 15px rgba(255, 71, 126, 0.3);
     transform: translateY(-2px);
 }
+
 .save-btn:active {
     transform: translateY(0);
 }
@@ -565,22 +585,29 @@ body {
     .close-btn {
         display: block;
     }
-    
+
     .top-header {
         margin-bottom: 30px;
     }
-    
+
     .header-title h1 {
         font-size: 24px;
     }
-    
+
     .module-page-header {
         flex-direction: column;
         text-align: center;
         padding: 24px;
     }
-    
+
     .toggle-switch {
         margin-top: 10px;
     }
+}
+
+select option {
+    background-color: #2b2d31;
+    /* Une couleur sombre façon Discord */
+    color: #ffffff;
+    /* Texte en blanc */
 }
