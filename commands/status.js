@@ -11,9 +11,9 @@ module.exports = {
         await interaction.deferReply();
 
         // On récupère l'ID du serveur (Guild ID)
-        // Note: pour tester en local avec le dashboard, on peut utiliser '123456789' 
+        // Note: pour tester en local avec le dashboard, on peut utiliser '1526188327563296819' 
         // si le bot n'est pas encore sur un vrai serveur qui a cet ID.
-        const guildId = interaction.guildId || '123456789';
+        const guildId = interaction.guildId || '1526188327563296819';
 
         // Lecture de la configuration depuis la base de données
         let config = await getConfig(guildId);

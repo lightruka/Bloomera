@@ -19,9 +19,9 @@ async function initDB() {
         )
     `);
 
-    // Insérer une configuration par défaut pour le serveur de test (ID: 123456789)
+    // Insérer une configuration par défaut pour le serveur de test (ID: 1526188327563296819)
     await db.run(`
-        INSERT OR IGNORE INTO guild_configs (guild_id) VALUES ('123456789')
+        INSERT OR IGNORE INTO guild_configs (guild_id) VALUES ('1526188327563296819')
     `);
 
     console.log('📦 Base de données SQLite initialisée.');

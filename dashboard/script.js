@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.addEventListener('click', closeSidebar);
 
     // ID du serveur de test
-    const guildId = '123456789';
+    const guildId = '1526188327563296819';
 
     // Variables pour les switchs
     const modToggle = document.getElementById('mod-toggle');
