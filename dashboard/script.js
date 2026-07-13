@@ -64,8 +64,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const guildId = '1526188327563296819';
 
     const modToggle = document.getElementById('mod-toggle');
+    const modAntilinkToggle = document.getElementById('mod-antilink');
+    const modAntiinsultToggle = document.getElementById('mod-antiinsult');
+    
     const welcomeToggle = document.getElementById('welcome-toggle');
     const logsToggle = document.getElementById('logs-toggle');
+    
+    const trapSelect = document.getElementById('trap-channel-select');
+    const saveTrapBtn = document.getElementById('save-trap-btn');
+
+    // Charger la liste des salons
+    async function loadChannels() {
+        if (!trapSelect) return;
+        try {
+            const response = await fetch(`/api/channels/${guildId}`);
+            if (response.ok) {
+                const channels = await response.json();
+                channels.forEach(channel => {
+                    const option = document.createElement('option');
+                    option.value = channel.id;
+                    option.textContent = `#${channel.name}`;
+                    trapSelect.appendChild(option);
+                });
+            }
+        } catch (error) {
+            console.error('Erreur de chargement des salons:', error);
+        }
+    }
 
     // Charger la config initiale
     async function loadConfig() {
@@ -74,8 +99,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 const config = await response.json();
                 if (modToggle) modToggle.checked = config.module_moderation;
+                if (modAntilinkToggle) modAntilinkToggle.checked = config.mod_antilink;
+                if (modAntiinsultToggle) modAntiinsultToggle.checked = config.mod_antiinsult;
                 if (welcomeToggle) welcomeToggle.checked = config.module_welcome;
                 if (logsToggle) logsToggle.checked = config.module_logs;
+                if (trapSelect && config.trap_channel_id) trapSelect.value = config.trap_channel_id;
             }
         } catch (error) {
             console.error('Erreur de chargement de la config:', error);
@@ -102,6 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
         toggle.addEventListener('change', (e) => {
             let moduleName = '';
             if (e.target.id === 'mod-toggle') moduleName = 'module_moderation';
+            if (e.target.id === 'mod-antilink') moduleName = 'mod_antilink';
+            if (e.target.id === 'mod-antiinsult') moduleName = 'mod_antiinsult';
             if (e.target.id === 'welcome-toggle') moduleName = 'module_welcome';
             if (e.target.id === 'logs-toggle') moduleName = 'module_logs';
 
@@ -111,6 +141,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Chargement de l'API
-    loadConfig();
+    // Sauvegarder le menu déroulant du salon piège
+    if (saveTrapBtn && trapSelect) {
+        saveTrapBtn.addEventListener('click', async () => {
+            const value = trapSelect.value;
+            saveTrapBtn.textContent = '...';
+            await updateConfig('trap_channel_id', value);
+            saveTrapBtn.textContent = 'Enregistré !';
+            setTimeout(() => { saveTrapBtn.textContent = 'Enregistrer'; }, 2000);
+        });
+    }
+
+    // Initialisation
+    async function initDashboard() {
+        await loadChannels(); // Attendre que les options soient créées
+        await loadConfig();   // Avant de sélectionner la bonne option
+    }
+    
+    initDashboard();
 });

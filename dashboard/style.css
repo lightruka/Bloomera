@@ -372,6 +372,58 @@ body {
     font-size: 48px;
 }
 
+/* --- Settings Cards --- */
+.settings-group {
+    margin-bottom: 30px;
+}
+.settings-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+.settings-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.setting-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: var(--transition);
+}
+.setting-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+.setting-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.setting-info ion-icon {
+    font-size: 24px;
+    color: var(--accent-color);
+    background: rgba(255, 71, 126, 0.1);
+    padding: 10px;
+    border-radius: 12px;
+}
+.setting-info h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.setting-info p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
 /* --- Toggle Switch --- */
 .toggle-switch {
     position: relative;
@@ -417,6 +469,50 @@ body {
 
 .toggle-switch input:checked + label:before {
     transform: translateX(24px);
+}
+
+/* --- Input Groups --- */
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.custom-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: var(--transition);
+    width: 200px;
+}
+
+.custom-input:focus {
+    border-color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.save-btn {
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.save-btn:hover {
+    box-shadow: 0 4px 15px rgba(255, 71, 126, 0.3);
+    transform: translateY(-2px);
+}
+.save-btn:active {
+    transform: translateY(0);
 }
 
 /* --- Overlay --- */

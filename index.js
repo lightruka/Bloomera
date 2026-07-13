@@ -50,7 +50,7 @@ for (const file of eventFiles) {
 (async () => {
     try {
         await initDB();
-        startAPI();
+        startAPI(client);
         await client.login(process.env.DISCORD_TOKEN);
     } catch (error) {
         console.error("Erreur au démarrage :", error);
